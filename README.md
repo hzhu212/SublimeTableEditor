@@ -537,6 +537,23 @@ Also you can temporary switch this setting with command palette:
 * Table Editor: Enable 'align_number_right' for current view
 * Table Editor: Disable 'align_number_right' for current view
 
+If `table_editor_align_number_right` true, auto alignment will be only if numbers in column:
+
+    |  Sacred numbers  | Birth  |
+    |------------------|--------|
+    |                4 |     04 |
+    |               14 |     04 |
+    |                7 |   1990 |
+    |------------------|--------|
+
+If in column not only numbers, `table_editor_align_number_right` will not be worked.
+
+    |  Sacred numbers |    Birth    |
+    |-----------------|-------------|
+    |     Sasha       |     04      |
+    |      14         |     Unusual |
+    |          7      |   1990      |
+    |-----------------|-------------|
 
 ### Detect header column to center
 
