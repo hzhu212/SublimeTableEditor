@@ -544,7 +544,6 @@ By default a header column aligns to center, if you do not like this you can dis
 
 ```javascript
 {
-
     "table_editor_detect_header": false
 }
 ```
@@ -622,7 +621,7 @@ and this result of Table Editor with
 
 **ctrl+shift+a**
 
-        Re-align the table without change the current table field. Move cursor to begin of the current table field.
+        Re-align the table without change the current table field. Move cursor to end of the current table field.
 
 **tab**
 
