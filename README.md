@@ -1,9 +1,6 @@
 This package is a continuation of the unmaintained [SublimeTableEditor package by vkocubinsky](https://github.com/vkocubinsky/SublimeTableEditor). Because [he](https://github.com/vkocubinsky) neither made me a collaborator nor transferred his repo, This is only a fork turned to a source repository. I had to readded all Issues from his repo by hand and merged all open Pull requests.
 
-
 # Table Editor
-
-## Overview
 
 *Table Editor* is a package for *Sublime Text 3* editor for edit text tables. *Table Editor* allow on easy way edit text table, it allows:
 
@@ -655,11 +652,35 @@ and this result of Table Editor with
 
 **alt+left**
 
-        Move the current column left.
+        Move the current cell to the left.
 
 **alt+right**
 
+        Move the current cell to the right.
+
+**alt+up**
+
+        Move current cell up
+
+**alt+down**
+
+        Move current cell down
+
+**alt+shift+ctrl+left**
+
+        Move the current column left.
+
+**alt+shift+ctrl+right**
+
         Move the current column right.
+
+**alt+shift+ctrl+up**
+
+        Move current row up
+
+**alt+shift+ctrl+down**
+
+        Move current row down
 
 **alt+shift+left**
 
@@ -677,13 +698,7 @@ and this result of Table Editor with
 
         Insert a new row above the current row. 
 
-**alt+up**
 
-        Move current row up
-
-**alt+down**
-
-        Move current row down
 
 **ctrl+k, -**
 
@@ -714,9 +729,13 @@ and this result of Table Editor with
  **ctrl+j**
         
         Join current row and next row into one if next row is not hline
- 
+
+**alt+delete**
+        delete a cell content
 
 ## License
 
 MIT License
+
+=======
 

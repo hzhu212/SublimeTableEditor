@@ -294,7 +294,6 @@ class TableEditorInsertColumn(AbstractTableCommand):
         return ctx.table_driver.editor_insert_column(ctx.table,
                                                      ctx.table_pos)
 
-
 class TableEditorKillRow(AbstractTableCommand):
     """
     Key : alt+shift+up
@@ -494,3 +493,28 @@ class TableEditorSetSyntax(sublime_plugin.TextCommand):
         self.view.settings().set("table_editor_syntax", syntax)
         sublime.status_message("Table Editor: set syntax to '{0}'"
                                .format(syntax))
+
+
+# Begin additions (MOVE CELL / DELETE CELL)
+
+class TableEditorDeleteCell(AbstractTableCommand):
+    def run_operation(self, ctx):
+        return ctx.table_driver.editor_delete_cell(ctx.table, ctx.table_pos)
+
+class TableEditorMoveCellUp(AbstractTableCommand):
+    def run_operation(self, ctx):
+        return ctx.table_driver.editor_move_cell_up(ctx.table, ctx.table_pos)
+
+class TableEditorMoveCellDown(AbstractTableCommand):
+    def run_operation(self, ctx):
+        return ctx.table_driver.editor_move_cell_down(ctx.table, ctx.table_pos)
+
+class TableEditorMoveCellLeft(AbstractTableCommand):
+    def run_operation(self, ctx):
+        return ctx.table_driver.editor_move_cell_left(ctx.table, ctx.table_pos)
+
+class TableEditorMoveCellRight(AbstractTableCommand):
+    def run_operation(self, ctx):
+        return ctx.table_driver.editor_move_cell_right(ctx.table, ctx.table_pos)
+
+# End additions (MOVE CELL / DELETE CELL)

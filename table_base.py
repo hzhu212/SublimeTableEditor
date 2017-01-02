@@ -417,12 +417,17 @@ class TextTable:
                 del row.columns[col]
         self.pack()
 
-    def swap_columns(self, i, j):
+    def swap_columns(self, i, j, rowid=None):
         self.assert_not_col_colspan(i)
         self.assert_not_col_colspan(j)
-        for row in self.rows:
-            if i < len(row) and j < len(row):
-                row.columns[i], row.columns[j] = row.columns[j], row.columns[i]
+        if rowid is None:
+            for row in self.rows:
+                if i < len(row) and j < len(row):
+                    row.columns[i], row.columns[j] = row.columns[j], row.columns[i]
+        else:
+            row = self.rows[rowid]
+            row.columns[i], row.columns[j] = row.columns[j], row.columns[i]
+
         self.pack()
 
     def delete_row(self, i):
@@ -431,16 +436,18 @@ class TextTable:
         del self.rows[i]
         self.pack()
 
-    def swap_rows(self, i, j):
+    def swap_rows(self, i, j, col=None):
         check_condition((0 <= i < len(self.rows) and
                         0 <= j < len(self.rows)),
                         "Index out of range")
-
-        self.rows[i], self.rows[j] = self.rows[j], self.rows[i]
-        for column in self.rows[i].columns:
-            column.header = False
-        for column in self.rows[j].columns:
-            column.header = False
+        if col is None:
+            self.rows[i], self.rows[j] = self.rows[j], self.rows[i]
+            for column in self.rows[i].columns:
+                column.header = False
+            for column in self.rows[j].columns:
+                column.header = False
+        else:
+            self.rows[i].columns[col], self.rows[j].columns[col] = self.rows[j].columns[col], self.rows[i].columns[col]
 
         self.pack()
 
@@ -532,6 +539,8 @@ class TableDriver:
         else:
             col_pos = 1
         return base_len + col_pos
+
+
 
     def editor_move_column_left(self, table, table_pos):
         internal_pos = self.visual_to_internal_index(table, table_pos)
@@ -751,6 +760,72 @@ class TableDriver:
         table.pack()
         return table
 
+    # Begin additions (MOVE CELL / DELETE CELL)
+
+    def editor_move_cell_up(self, table, table_pos):
+        internal_pos = self.visual_to_internal_index(table, table_pos)
+        field_num = internal_pos.field_num
+
+        if table_pos.row_num > 0:
+            table.swap_rows(table_pos.row_num, table_pos.row_num - 1, field_num)
+            return("Cell moved up",
+                   TablePos(table_pos.row_num - 1, table_pos.field_num))
+
+    def editor_move_cell_down(self, table, table_pos):
+        internal_pos = self.visual_to_internal_index(table, table_pos)
+        field_num = internal_pos.field_num
+
+        if table_pos.row_num > 0:
+            table.swap_rows(table_pos.row_num, table_pos.row_num + 1, field_num)
+            return("Cell moved down",
+                   TablePos(table_pos.row_num + 1, table_pos.field_num))            
+
+    def editor_move_cell_left(self, table, table_pos):
+        internal_pos = self.visual_to_internal_index(table, table_pos)
+        field_num = internal_pos.field_num
+        if field_num > 0:
+            if (table.is_col_colspan(field_num) or
+                    table.is_col_colspan(field_num - 1)):
+                raise TableException("Move Column Left is not "
+                                     "permitted for colspan column")
+            else:
+                table.swap_columns(field_num, field_num - 1, table_pos.row_num)
+                return ("Column moved to left",
+                        TablePos(table_pos.row_num, table_pos.field_num - 1))
+        else:
+            raise TableException("Move Column Left doesn't "
+                                 "make sence for the first column in the "
+                                 "table.")
+
+    def editor_move_cell_right(self, table, table_pos):
+        internal_pos = self.visual_to_internal_index(table, table_pos)
+        field_num = internal_pos.field_num
+
+        if field_num < len(table[table_pos.row_num]) - 1:
+            if (table.is_col_colspan(field_num) or
+                    table.is_col_colspan(field_num + 1)):
+                raise TableException("Move Column Right is not "
+                                     "permitted for colspan column")
+            else:
+                table.swap_columns(field_num, field_num + 1, table_pos.row_num)
+                return ("Column moved to right",
+                        TablePos(table_pos.row_num, table_pos.field_num + 1))
+        else:
+            raise TableException("Move Column Right doesn't "
+                                 "make sense for the last column in the "
+                                 "table.")
+
+    def editor_delete_cell(self, table, table_pos):
+        internal_pos = self.visual_to_internal_index(table, table_pos)
+        field_num = internal_pos.field_num
+
+        table.rows[table_pos.row_num].columns[field_num].data = ""
+        
+        table.pack()
+
+        return ("Deleted cell", TablePos(table_pos.row_num, table_pos.field_num))
+
+    # End additions (MOVE CELL / DELETE CELL)        
 
 class BaseTableParser:
 
