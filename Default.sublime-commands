@@ -57,5 +57,8 @@
       "command": "table_editor_set_syntax", "args": {"syntax": "reStructuredText"} },
 
     { "caption": "Table Editor: Set table syntax 'Textile' for current view", 
-      "command": "table_editor_set_syntax", "args": {"syntax": "Textile"} }
+      "command": "table_editor_set_syntax", "args": {"syntax": "Textile"} },
+    
+    { "caption": "Table Editor: Convert CSV into table",
+      "command": "table_editor_csv_to_table"}
 ]
