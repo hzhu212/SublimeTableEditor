@@ -1,7 +1,3 @@
-# This package is no more supported. I moved to vim.
-
-
-
 # Table Editor
 
 ## Overview
