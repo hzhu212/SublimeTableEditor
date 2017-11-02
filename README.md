@@ -737,5 +737,4 @@ and this result of Table Editor with
 
 MIT License
 
-=======
 
