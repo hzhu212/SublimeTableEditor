@@ -1,16 +1,11 @@
-# This package is no more supported. I moved to vim.
-
+This package is a continuation of the unmaintained [SublimeTableEditor package by vkocubinsky](https://github.com/vkocubinsky/SublimeTableEditor). Because [he](https://github.com/vkocubinsky) neither made me a collaborator nor transferred his repo, This is only a fork turned to a source repository. I had to readded all Issues from his repo by hand and merged all open Pull requests.
 
 
 # Table Editor
 
 ## Overview
 
-*Table Editor* is a package for the *Sublime Text 2* and *Sublime Text 3* 
-editor for edit text tables. 
-*Table Editor* is has almost the same keys as Emacs-org mode table editor. 
-
-*Table Editor* allow on easy way edit text table, it allows:
+*Table Editor* is a package for *Sublime Text 3* editor for edit text tables. *Table Editor* allow on easy way edit text table, it allows:
 
 - navigate with tab/shift tab 
 - insert/delete row
@@ -707,12 +702,5 @@ and this result of Table Editor with
 
 ## License
 
-Package is distributed by Apache 2.0 License
+MIT License
 
-## Testing
-
-Test environment
-
-- Ubuntu 12.04 64bit on VirtualBox
-- Windows 7 64bit
-- OS X 10.8.4
