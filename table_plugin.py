@@ -465,7 +465,8 @@ class TableEditorDisableForCurrentSyntax(sublime_plugin.TextCommand):
     def run(self, edit):
         syntax = self.view.settings().get('syntax')
         if syntax is not None:
-            m = re.search("([^/]+)[.]tmLanguage$", syntax)
+            m = re.search("([^/]+)[.]tmLanguage$", syntax) or \
+                re.search("([^/]+)[.]sublime-syntax$", syntax)
             if m:
                 base_name = m.group(1) + ".sublime-settings"
                 settings = sublime.load_settings(base_name)
@@ -478,7 +479,8 @@ class TableEditorEnableForCurrentSyntax(sublime_plugin.TextCommand):
     def run(self, edit):
         syntax = self.view.settings().get('syntax')
         if syntax is not None:
-            m = re.search("([^/]+)[.]tmLanguage$", syntax)
+            m = re.search("([^/]+)[.]tmLanguage$", syntax) or \
+                re.search("([^/]+)[.]sublime-syntax$", syntax)
             if m:
                 base_name = m.group(1) + ".sublime-settings"
                 settings = sublime.load_settings(base_name)
